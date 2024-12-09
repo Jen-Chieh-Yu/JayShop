@@ -19,7 +19,7 @@ namespace JayShop.DBConnection
             string server = "127.0.0.1";
             string database = "jayshop";
             string user = "root";
-            string password = "v56edd5m4s";
+            string password = "jaychiehyu";
             var sslM = MySqlSslMode.Required;
             var version = new MySqlServerVersion(new Version(8, 0, 35));
 
