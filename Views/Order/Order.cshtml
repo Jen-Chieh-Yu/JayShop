@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "訂單確認";
+}
+
+<div id="order">
+    <div class="progress-list">
+        <ol class="list">
+            <li v-for="(step, index) in steps" :key="index" :class="{ active : currentProgress[index] }">
+                <i :class="step.icon"></i>
+                {{ step.label }}
+            </li>
+        </ol>
+    </div>
+
+    <div class="cart">
+        <div class="table-header">
+            <div v-for="(col, index) in tableRow.colName" :class="tableRow.colClass[index]">
+                <span class="table-header-name">{{ col }}</span>
+            </div>
+        </div>
+        <div v-for="cartItem in cartItems" class="table-body" ref="cartItem.ID">
+            <div class="col-sm-2">
+                <img :src="cartItem.ImgUrl" />
+            </div>
+            <div class="col-sm-4">
+                <p>{{ cartItem.Name }}</p>
+            </div>
+            <div class="col-sm-1">
+                <p>{{ cartItem.Price }}</p>
+            </div>
+            <div class="col-sm-3">
+                <p>{{ cartItem.Quantity }}</p>
+            </div>
+            <div class="col-sm-2">
+                <p>{{ numberFormat(cartItem.Subtotal) }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="delivery-form">
+        <div class="delivery-information">
+            <div class="delivery-information-head">
+                <p class="h3 delivery-information-title">{{ deliveryTitle }}</p>
+            </div>
+            <div class="section-body">
+                <div v-for="(detail, key) in orderDetails" class="section-body-content">
+                    <label>{{ key }}</label>
+                    <span>{{ detail }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class=" bill-check">
+            <div class="bill-head">
+                <h3 class="bill-title">{{ billTitle }}</h3>
+            </div>
+            <div class="section-body">
+                <div v-for="(value, key) in bill" class="bill-detail">
+                    <span>{{ key }}：{{ value }}</span>
+                </div>
+                <hr />
+                <div class="check-area">
+                    <input id="chech_box" type="checkbox" />
+                    <span class="check-all">{{ checkText }}</span>
+                </div>
+                <div class="send-area">
+                    <a class="back-btn btn btn-danger" asp-action="ShoppingCart" asp-controller="Home">{{ backBtn }}</a>
+                    <a class="send-btn btn btn-success" asp-action="" asp-controller="">{{ sendBtn }}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="module" src="~/js/order.js" asp-append-version="true"></script>

@@ -1,19 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NPOI.OpenXmlFormats;
 using System.Diagnostics;
-using WebApplication1.Models;
+using System.Runtime.CompilerServices;
+using JayShop.DBConnection;
+using JayShop.Services;
+using JayShop.Models;
 
-namespace WebApplication1.Controllers
+namespace JayShop.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DataBaseConnection _db;
+        private readonly CartService _cartService;
+        private readonly SearchService _searchService;
+        private ISession _session => HttpContext.Session;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DataBaseConnection db, CartService cartService, SearchService searchService)
         {
             _logger = logger;
+            _db = db;
+            _cartService = cartService;
+            _searchService = searchService;
         }
 
         public IActionResult Homepage()
+        {
+                return View();
+        }
+
+        public IActionResult Products(int type)
         {
             return View();
         }
@@ -22,9 +39,21 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
+        public IActionResult Search()
         {
+            return View();
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult ShoppingCart()
+        {
+            return View();
+        }
+        public IActionResult ProductInformation(int product_id)
+        {       
             return View();
         }
 

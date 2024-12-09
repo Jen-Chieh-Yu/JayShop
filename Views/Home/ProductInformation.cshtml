@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "商品資訊 - ";
+}
+
+<div id="product-information">
+    <nav class="nav" aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
+        <ol class="breadcrumb">
+            <li v-for="link in breadCrumb" class="breadcrumb-item">
+                <a v-on:click="products(link.type)">{{ link.hrefName }}</a>
+            </li>
+        </ol>
+    </nav>
+
+    <div class="product-information">
+        <div v-if="product" class="col-lg-6 col-lg-6 d-flex align-items-center justify-content-center">
+            <img :src="product.url" />
+        </div>
+        <div v-if="product" class="col-lg-6">
+            <div class="card-body d-flex flex-column h-100">
+                <h2 class="card-title text-success">{{ product.name }}</h2>
+                <p class="card-text">
+                    {{ information }}
+                </p>
+                <div class="price-area">
+                    <p class="h4">＄ {{ product.price }} / 份</p>
+                    <p class="h5">小計＄{{ subTotal }} 元</p>
+                </div>
+                <div class="btn-group">
+                    <button class="adjust-count-btn" v-on:click="adjustQuantity($event)" :disabled="minusDisable">-</button>
+                    <input class="item-count-input" type="number" :value="count" :min="minCount" readonly="readonly">
+                    <button class="adjust-count-btn" v-on:click="adjustQuantity($event)">+</button>
+                    <button class="track-btn" type="button" v-on:click.prevent="trackBtn">追蹤商品</button>
+                    <button class="add-to-cart-btn" type="button" v-on:click.prevent="addToCart">加入購物車</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="relevant-products">
+        <div class="relevant-title">
+            <p class="h3">相關商品</p>
+        </div>
+        <div class="products-list  row">
+            <div v-if="relevantProducts" v-for="product in productList" class="col-lg-2 col-md-4 col-sm-6 mt-3 mb-3">
+                <div class="card h-100">
+                    <a class="product-link" v-on:click="getProductInformation(product.id)">
+                        <img class="product-img" :src="product.url" />
+                    </a>
+                    <div class="card-body d-flex flex-column">
+                        <p class="card-title h6 text-truncate" :data-title="product.name">{{ product.name }}</p>
+                        <p class="mt-auto mb-0 align-self-center">NT $ {{ product.price }} 元</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="showLoadMore" class="load-more">
+            <button class="load-more-btn" v-on:click="loadMore">載入更多相關商品</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="~/js/product-information.js" asp-append-version="true"></script>

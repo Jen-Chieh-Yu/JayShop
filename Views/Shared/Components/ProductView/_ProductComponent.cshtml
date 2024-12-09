@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Product>
+
+<style>
+    .product-img {
+        transform:scale(1, 1); transition:all 1s ease-in-out;
+        
+    }
+        .product-img:hover {
+        /* transform:scale(1.1, 1.1); */
+    }
+    
+    .product-name {
+        font-weight:bold;
+    }
+</style>
+
+<div class="product-list row">
+            @foreach (var product in Model)
+            {
+                <div class="col-2 col-md-2 my-4">
+                    <div class="card h-100">
+                        <img id="@product.ID" class="product-img" src="@product.Url" style="margin:1rem"/>
+                        <div class="card-body">
+                            <p class="product-name">@product.Name</p>
+                        </div>
+                        <span class="product-price">$@product.Price</span>
+                        <a class="btn btn-primary" href="@Url.Action("AddToCart", "ShoppingCart", new  { ID = @product.ID})">加入購物車</a>                    
+                    </div>                    
+                </div>
+            }      
+</div>

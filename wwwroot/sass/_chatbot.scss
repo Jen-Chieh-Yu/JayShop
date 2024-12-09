@@ -1,0 +1,237 @@
+﻿.chatbot-toggler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 40px;
+    bottom: 35px;
+    height: 50px;
+    width: 50px;
+    color: #fff;
+    background: #724AE8;
+    border: none;
+    border-radius: 50px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.show-chatbot.chatbot-toggler {
+    transform: rotate(90deg);
+}
+
+.chatbot-toggler i {
+    position: absolute;
+}
+
+/*開啟聊天室*/
+.show-chatbot.chatbot-toggler i:first-child,
+.chatbot-toggler i:last-child {
+    opacity: 0;
+}
+
+/*關閉聊天室*/
+.show-chatbot.chatbot-toggler i:last-child {
+    opacity: 1;
+}
+
+.chatbot {
+    position: fixed;
+    right: 40px;
+    bottom: 100px;
+    width: 400px;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1), 0 32px 64px -48px rgba(0, 0, 0, 0.5);
+    transform: scale(0.5);
+    pointer-events: none;
+    opacity: 0;
+    transform-origin: bottom right;
+    transition: all 0.5s ease;
+
+    & header {
+        padding: 16px 0;
+        text-align: center;
+        background: #724AE8;
+        position: relative;
+
+        & h2 {
+            color: #fff;
+            font-size: 1.4rem;
+        }
+
+        & i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            cursor: pointer;
+            transform: translateY(-50%);
+            color: #FFF;
+            display: none;
+        }
+    }
+
+    &.show-chatbot {
+        transform: scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+
+.chatbot .chatWindow {
+    height: 510px;
+    padding: 30px 20px 0 20px;
+    margin: 0 0 80px 0;
+    overflow-y: auto;
+}
+
+.chatbot .chat {
+    display: flex;
+}
+
+/*對方圖示*/
+.chatWindow .incoming i {
+    height: 32px;
+    width: 32px;
+    color: #fff;
+    background: #724AE8;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 4px;
+    margin: 0 10px 7px 0;
+    align-self: flex-end;
+}
+
+/*對話框*/
+.chatWindow .chat p {
+    max-width: 50%;
+    padding: 12px 16px;
+    border-radius: 10px 10px 0 10px;
+    font-size: 0.95rem;
+    color: #fff;
+    background: #724AE8;
+    /*數字過長，斷行*/
+    overflow-wrap: break-word;
+    /*保留換行符號*/
+    white-space: pre-line;
+}
+
+/*對方輸出對話*/
+.chatWindow .incoming p {
+    color: #000;
+    background: #F2F2F2;
+    border-radius: 10px 10px 10px 0;
+}
+
+/*我方輸出對話*/
+.chatWindow .outgoing {
+    margin: 20px 0;
+    justify-content: flex-end;
+}
+
+/*輸入區塊*/
+.chatbot .chat-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 5px 20px;
+    border-top: 1px solid #CCC;
+    background: #FFF;
+    box-sizing: border-box;
+}
+
+
+.chatbot .chat-input textarea {
+    height: 40px;
+    width: 100%;
+    max-height: 180px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 0.95rem;
+    margin: 8px 15px 8px 0;
+}
+
+/*滾動條*/
+.chatbot .chatWindow::-webkit-scrollbar,
+.chatbot .chat-input textarea::-webkit-scrollbar {
+    width: 7px;
+}
+
+/*滑動塊*/
+.chatbot .chatWindow::-webkit-scrollbar-thumb,
+.chatbot .chat-input textarea::-webkit-scrollbar-thumb {
+    border: 1px solid slategray;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color 0.5s ease;
+}
+
+/*輸入鍵*/
+.chatbot .chat-input i {
+    align-self: flex-end;
+    height: 10px;
+    line-height: 10px;
+    color: #724AE8;
+    font-size: 1.35rem;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.chatbot .chat-input textarea:valid ~ i {
+    visibility: visible;
+}
+
+@media screen and (max-width:490px) {
+    .chatbot {
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 85%;
+        border-radius: 0;
+    }
+
+    .chatbot .chatWindow {
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .chatbot header i {
+        display: block;
+    }
+}
+
+.chatWindow {
+    position: relative;
+}
+
+/*對話視窗移至最底部*/
+.turn-to-bottom {
+    border: 1px solid gray;
+    border-radius: 50%;
+    color: #FFF;
+    background: gray;
+    position: absolute;
+    right: 10px;
+    bottom: 85px;
+    cursor: pointer;
+}
+
+.fade-out-down {
+    animation: fadeOutDown 1s linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOutDown {
+    0% {
+        transform: translateY(100px);
+    }
+
+    100% {
+        transform: translateY(80px);
+    }
+}

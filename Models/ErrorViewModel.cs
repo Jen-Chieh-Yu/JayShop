@@ -1,4 +1,4 @@
-namespace WebApplication1.Models
+namespace JayShop.Models
 {
     public class ErrorViewModel
     {

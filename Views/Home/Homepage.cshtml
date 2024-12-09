@@ -1,12 +1,43 @@
-﻿@{
-    ViewData["Title"] = "首頁";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+﻿<div class="main-board">
+    <div class="advertising-board">
+        <img class="advertising-img" src="~/photo/board/jay日韓雜貨小舖.jpg" />
+    </div>
+    <div class="product-board">
+        <div v-for="product in products" class="products">
+            <div class="products-title">
+                <h2 class="product-title-text">{{ product.productTitle }}</h2>
+            </div>
+            <div class="row products-list">
+                <div v-for="(item, index) in product.showProducts" class="col-lg-2 col-md-4 col-sm-6 mt-3 mb-3">
+                    <div class="card h-100">
+                        @* <a class="product-link" :href="'Home/ProductInformation?product_id=' + item.id"> *@
+                        <a class="product-link" v-on:click="getProductInformation(item.id)">
+                            <img class="product-img" :src="item.url" />
+                        </a>
+                        <div class="card-body d-flex flex-column">
+                            <p class="card-title h6 text-truncate" :data-title="item.name">{{ item.name }}</p>
+                            <p class="mt-auto mb-0 align-self-center">NT$ {{ item.price }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagenation">
+                <a v-on:click="previousPage(product, pageNumber)" ref="previous">
+                    <i class="bi bi-arrow-left-short"></i>
+                </a>
+                <a v-for="pageNumber in product.pageCount"
+                   :class="{ 'current-page' : product.currentPage===pageNumber }"
+                   :key="pageNumber"
+                   v-on:click="goToPage(product, pageNumber)">
+                    {{ pageNumber }}
+                </a>
+                <a v-on:click="nextPage(product)" ref="next">
+                    <i class="bi bi-arrow-right-short"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    @* @await Component.InvokeAsync(productView) *@
 </div>
 
-<div class="container">
-    <img src="~/photo/merchandise/日本 明治「gochi」軟糖.png" />
-</div>
+<script type="module" src="~/js/homepage.js" asp-append-version="true"></script>

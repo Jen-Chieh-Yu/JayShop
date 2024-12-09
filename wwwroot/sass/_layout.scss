@@ -1,0 +1,288 @@
+﻿body {
+    margin: 150px 0 0 0;
+    background-color: #e8e2e2;
+}
+
+main {
+    min-height: 65vh;
+    justify-content: center;
+    align-content: start;
+}
+
+.navbar {
+    height: 150px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(7px);
+    position: fixed;
+    top: 0;
+    z-index: 10;
+
+    & .container {
+        justify-content: start;
+
+        & .logo {
+            max-width: 100px;
+        }
+
+        & .menu-btn,
+        & .close-offcanvas {
+            font-size: 30px;
+            color: #aaa;
+            text-decoration: none;
+            cursor: pointer;
+            display: none;
+
+            &:hover {
+                color: #000;
+            }
+        }
+
+        & .nav-items {
+            display: flex;
+            align-items: center;
+
+            &:nth-of-type(2) {
+                width: 92%;
+
+                & .nav-item:last-child {
+                    display: flex;
+                    margin-left: auto;
+
+                    & .search-area {
+                        display: flex;
+                        align-items: center;
+
+                        & .search-input {
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+
+            & .nav-links {
+                margin: 0 10px;
+                padding: 0;
+                display: flex;
+
+                & .nav-link {
+                    font-size: 20px;
+                    margin: 0px 10px;
+                    padding: 5px;
+                    position: relative;
+                    color: #aaa;
+                    text-decoration: none;
+                    cursor: pointer;
+
+                    a {
+                        color: #aaa;
+                        text-decoration: none;
+
+                        &:hover,
+                        &.active {
+                            color: #000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    & .modal {
+        position: fixed;
+        width: 100%;
+        min-height: 100vh;
+        top: 0;
+        left: 0;
+        display: table;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+    }
+}
+
+.search-input {
+    width: 180px;
+    padding: 0 10px;
+    border: 1px solid #aaa;
+    border-radius: 12px;
+    outline: 0;
+
+    &:focus {
+        border: 1px solid #000;
+        outline: none;
+        color: #000;
+    }
+}
+
+#search-btn i,
+#track-btn i,
+#cart-btn i,
+#member-btn {
+    font-size: 30px;
+    color: #000;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
+.track-count,
+.cart-count {
+    display: block;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    font-weight: 500;
+    color: white;
+    background: #e71a1a;
+    border-radius: 50%;
+    position: absolute;
+    right: -30%;
+    top: 0;
+    text-align: center;
+}
+
+.open-menu {
+    right: 0;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width:1400px) {
+    .menu-btn {
+        display: block;
+    }
+
+
+    .navbar .container .nav-items:nth-of-type(2) {
+        width: 25%;
+        min-height: 100vh;
+        right: -100%;
+        top: 0;
+        display: block;
+        text-align: center;
+        border: solid #000;
+        border-width: 0 0 0 1px;
+        position: fixed;
+        background: white;
+        transition: all 0.5s;
+        z-index: 10;
+
+        & .nav-item {
+            margin: 20px 0;
+
+            & .nav-links {
+                display: block;
+
+                & .nav-link {
+                    margin: 10px 0;
+                }
+            }
+        }
+
+        & .nav-item:last-child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &.open-menu {
+            right: 0;
+        }
+    }
+
+    .navbar .container .menu-btn,
+    .navbar .container .close-offcanvas {
+        display: block;
+    }
+
+    .navbar .container .menu-btn {
+        position: fixed;
+        right: 10%;
+        z-index: 1;
+    }
+
+    .products .product .card img {
+        width: 100%;
+    }
+}
+
+.foot {
+    width: 100%;
+    height: 200px;
+    padding: 30px 200px;
+    background: #f0f0f0;
+
+    & .footer-list {
+        width: 100%;
+        display: flex;
+
+        & .footer-items {
+            width: 25%;
+
+            & .footer-items-title h5 {
+                font-weight: 800;
+            }
+
+            & .footer-item-links {
+                padding: 0;
+
+                & .footer-item-link {
+                    width: 120px;
+                    color: #aaa;
+                    list-style: none;
+
+                    &:hover {
+                        color: #000;
+                        cursor: pointer;
+                    }
+
+                    & span {
+                        margin-left: 5px;
+                    }
+                }
+            }
+
+            &:last-child .footer-item .footer-item-links {
+                display: flex;
+                flex-direction: column;
+
+                & .footer-item-link {
+                    height: 30px;
+                    width: 125px;
+                    padding: 0px 2px;
+                    border: 1px solid #aaa;
+                    border-radius: 3px;
+
+                    &:hover {
+                        border: 1px solid #000;
+                    }
+
+
+                    &:nth-child(2) {
+                        margin-top: 2px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.jay-shop-information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #aaa;
+    border-width: 1px 0px 0px 0px;
+    padding: 10px 0px;
+
+    & span {
+        font-size: 20px;
+        margin-left: 3px;
+    }
+}

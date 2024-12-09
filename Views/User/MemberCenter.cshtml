@@ -1,0 +1,160 @@
+﻿@{
+    ViewBag.Title = "會員中心 | ";
+}
+
+<style>
+    #member-center{
+        margin:3rem;
+        min-height:60vh;
+    }
+    #member-center-header{
+        display:flex;
+        border:2px solid;
+        border-color:lightgray;
+        border-radius:10px 10px 0px 0px;
+        background-color: rgb(247 166 166 / 0.85);
+        margin:auto;
+        text-align:center;
+    }
+    #member-center-header div {
+        padding:10px;
+    }
+
+    .header-link{
+        text-decoration:none;
+        color:black;
+        font-size:20px;
+        font-family: 'Global Monospace';
+        font-weight: 900;
+    }
+
+    .header-link:hover{
+        color:white;
+        cursor:pointer;
+    }
+
+    #member-center-body{
+        border-left:2px solid;
+        border-right:2px solid;
+        border-bottom:2px solid;
+        border-radius:0px 0px 20px 20px;
+        border-color:lightgray;
+        margin:auto;
+        padding-top:20px;
+        padding-bottom:30px;
+    }
+
+    .user-information {
+        display:flex;
+        padding-left:20px;
+        padding-right: 20px;
+    }
+
+    #user-edit {
+        margin-left:auto;
+    }
+
+    .user_information_detail{
+        margin-top:5px;
+        margin-bottom:5px;
+    }
+
+    .user_information_detail span, #renew-password, #user-edit {
+        font-size:20px;
+        font-family: 'Global Monospace';
+    }
+
+    .order-information{
+        display:flex;
+        width:90%;
+        text-align:center;
+        margin:auto;
+        margin-top:20px;
+        border:2px solid;
+        border-color:lightgray;
+        border-radius:2px 2px 0px 0px;
+    }
+
+</style>
+
+<div id="member-center">
+    <div id="member-center-header">
+        <div class="col-sm-4">
+            <a class="header-link" href="#" onclick="return false">個人資訊</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="header-link" href="#" onclick="return false">我的訂單</a>
+        </div>
+        <div class="col-sm-4">
+            <a class="header-link" href="#" onclick="return false">追蹤清單</a>
+        </div>
+    </div>
+
+    <div id="member-center-body">
+        <div id="user">
+            <div class="user-information">
+                <h3 style="">會員資料</h3>
+                <a id="user-edit" href="#">編輯</a>
+            </div>
+            <div class="user-information">
+                <div class="col-sm-6">
+                    <div class="user_information_detail">
+                        <span>姓名</span>
+                        <span>余仁傑</span>
+                    </div>
+                    <div class="user_information_detail">
+                        <span>信箱</span>
+                        <span>xlarge840516@gmail.com</span>
+                    </div>                
+                    <div class="user_information_detail">
+                        <span>密碼</span>
+                        <a id="renew-password" href="#">更改密碼</a>
+                    </div>
+                    <div class="user_information_detail">
+                        <span>已訂閱通知</span>
+                        <input type="radio"/>
+                        <span>發送至信箱</span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="user_information_detail">
+                        <span>電話號碼</span>
+                        <span>0937-XXX-XXX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="order">
+            <div class="order-information">
+                <div class="col-sm-3">
+                    <span>訂單號碼</span>
+                </div>
+                <div class="col-sm-3">
+                    <span>訂單日期</span>
+                </div>
+                <div class="col-sm-3">
+                    <span>合計</span>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="order-information">
+                <div class="col-sm-3">
+                    <span>OrderID</span>
+                </div>
+                <div class="col-sm-3">
+                    <span>OrderTime</span>
+                </div>
+                <div class="col-sm-3">
+                    <span>OrderTotalPrice</span>
+                </div>
+                <div class="col-sm-3">
+                    <a asp-action="" asp-controller="">詳細內容</a>
+                </div>
+            </div>
+        </div>
+
+    </div>    
+
+    <div id="traking-list" style="display:none"></div>
+</div>
