@@ -38,47 +38,10 @@ namespace JayShop.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Login(string account, string password)
-        {
-            var loginResult = _userService.Login(account, password);
-
-            if (loginResult == true)
-            {
-                return View();
-            }
-            else
-            {
-                return View();
-            }
-        }
 
         public IActionResult ForgetPassword()
         {
             return View();
-        }
-        [HttpPost]
-        public IActionResult ForgetPassword(string newPassowrd)
-        {
-            var currentUser = _userService.GetUser();
-
-            if (currentUser == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            else
-            {
-                var revisedResult = _userService.RevisePassword(newPassowrd);
-
-                if (revisedResult == true)
-                {
-                    return View();
-                }
-                else
-                {
-                    return View();
-                }
-            }
         }
 
         public IActionResult Register()
@@ -86,21 +49,6 @@ namespace JayShop.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register(User user)
-        {
-            var registerResult = _userService.Register(user);
-
-            if (registerResult == false)
-            {
-                return View("Register");
-            }
-            else
-            {
-                return View("RegisterSuccessful");
-            }
-        }
         [HttpPost]
         public IActionResult Logout()
         {
