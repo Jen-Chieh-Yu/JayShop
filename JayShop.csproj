@@ -15,14 +15,20 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\js\login.js" />
     <Content Remove="wwwroot\js\order.js" />
+    <Content Remove="wwwroot\sass\_login.scss" />
     <Content Remove="wwwroot\sass\_main.scss" />
+    <Content Remove="wwwroot\sass\_register.scss" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\login.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\order.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\product-information.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\sass\_login.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\sass\_main.scss" />
+    <_ContentIncludedByDefault Remove="wwwroot\sass\_register.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +52,7 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\js\user\login.js" />
     <None Include="wwwroot\js\order.js" />
     <None Include="wwwroot\js\store\product-information.js" />
     <None Include="wwwroot\photo\Merchandise\日本 明治「GOCHI」軟糖.png" />
@@ -68,7 +75,9 @@
     <None Include="wwwroot\photo\Merchandise\韓國辛拉麵.png" />
     <None Include="wwwroot\photo\Merchandise\韓國農心浣熊炸醬麵.png" />
     <None Include="wwwroot\photo\Merchandise\韓國金螃蟹海鮮風味拉麵.png" />
+    <None Include="wwwroot\sass\_login.scss" />
     <None Include="wwwroot\sass\_main.scss" />
+    <None Include="wwwroot\sass\_register.scss" />
   </ItemGroup>
 
 </Project>

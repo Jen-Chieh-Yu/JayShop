@@ -684,13 +684,9 @@ form {
 }
 .delivery-form .delivery-information .section-body .send-area, .delivery-form .bill-check .section-body .send-area {
   display: flex;
-  justify-content: center;
+  gap: 1rem !important;
 }
-.delivery-form .delivery-information .section-body .send-area .back-btn, .delivery-form .bill-check .section-body .send-area .back-btn {
-  width: 100%;
-  margin-right: 10px;
-}
-.delivery-form .delivery-information .section-body .send-area .send-btn, .delivery-form .bill-check .section-body .send-area .send-btn {
+.delivery-form .delivery-information .section-body .send-area .back-btn, .delivery-form .delivery-information .section-body .send-area .send-btn, .delivery-form .bill-check .section-body .send-area .back-btn, .delivery-form .bill-check .section-body .send-area .send-btn {
   width: 100%;
 }
 .delivery-form .delivery-information {
@@ -966,4 +962,16 @@ form {
   border: 2px solid;
   border-radius: 3px;
   background-color: dimgray;
+}
+
+.register-form {
+  border: 3px solid;
+  border-radius: 3px;
+  border-color: lightgray;
+  padding: 10px 20px 10px 20px;
+  background-color: whitesmoke;
+}
+
+.third-party-login-icon {
+  width: 20px;
 }

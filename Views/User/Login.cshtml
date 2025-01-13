@@ -1,1 +1,41 @@
-﻿
+﻿<form type="post" id="login" class="d-flex justify-content-center">
+    <div class="login-form w-25">
+        <div class="row pt-2 pb-2">
+            <h3 class="fw-bold">{{ registerFormTitle }}</h3>
+        </div>
+        <div v-for="field in loginFormDetails" class="pt-2 pb-2">
+            <label :for="field.labelFor" class="form-label fw-bold">{{ field.labelFor }}</label>
+            <input :id="field.labelFor"
+                   :name="field.labelFor"
+                   class="form-control"
+                   :type="field.type"
+                   :placeholder="field.placeholder"
+                   :autocomplete="field.autocomplete"
+                   v-model="field.formValue"/>
+        </div>
+        <div class="d-flex pt-2 pb-2">
+            <button class="btn btn-primary w-100" v-on:click="login">{{ loginBtn }}</button>
+        </div>
+        <div class="d-flex justify-content-between pt-2" >
+            <div>
+                <a href="/User/ForgetPassword">{{ forgetPasswordLink }}</a>
+            </div>
+            <div>
+                <a href="/User/Register">{{ registerLink }}</a>
+            </div>
+        </div>
+        <hr />
+        <div class="third-party-login d-flex gap-3">
+            <button class="btn btn-outline-secondary w-100">
+                <img class="third-party-login-icon" src="~/photo/login/facebook.png" />
+                {{ facebookLogin }}
+            </button>
+            <button class="btn btn-outline-secondary w-100">
+                <img class="third-party-login-icon" src="~/photo/login/google.png" />
+                {{ googleLogin }}
+            </button>
+        </div>
+    </div>
+</form>
+
+<script type="module" src="/js/user/login.js" asp-append-version="true"></script>

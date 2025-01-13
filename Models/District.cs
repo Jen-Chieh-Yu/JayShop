@@ -7,6 +7,6 @@ namespace JayShop.Models
         public int CityCode { get; set; }
         [Key]
         public int DistrictCode { get; set; }
-        public string DistrictName { get; set;}
+        public string DistrictName { get; set;}=string.Empty;
     }
 }

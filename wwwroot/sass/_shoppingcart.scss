@@ -99,14 +99,9 @@ form {
 
             & .send-area {
                 display: flex;
-                justify-content: center;
+                gap: 1rem !important;
 
-                & .back-btn {
-                    width: 100%;
-                    margin-right: 10px;
-                }
-
-                & .send-btn {
+                & .back-btn, & .send-btn {
                     width: 100%;
                 }
             }

@@ -41,7 +41,7 @@
                     </div>
                     <div class="nav-item">
                         <div class="search-area">
-                            <input class="search-input" type="text" placeholder="想要找什麼商品呢？" v-on:keydown.enter="searchBtn" v-model="searchValue">
+                            <input id="search" class="search-input" type="text" placeholder="想要找什麼商品呢？" v-on:keydown.enter="searchBtn" v-model="searchValue">
                             <a id="search-btn" v-on:click="searchBtn" ><i class="bi bi-search"></i></a>
                         </div>
                         <ul class="nav-links">
@@ -65,7 +65,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pt-3 pb-3">
+        <main role="main" class="d-flex flex-column pt-3 pb-3">
             @RenderBody()
         </main>
     </div>

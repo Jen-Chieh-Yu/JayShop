@@ -1,1 +1,79 @@
-﻿
+﻿<div method="" id="register" class="d-flex justify-content-center">
+    <div class="register-form">
+        <div class="row pt-2">
+            <h3 class="fw-bold">{{ registerFormTitle }}</h3>
+        </div>
+        <hr />
+        <div v-for="(field, index) in registerFormDetails" :class="`form-field-${field.field}`">
+            <div v-if="field.field==='name'" class="row pt-2 pb-2">
+                <div class="col">
+                    <label id="field.nameGroups.lastName.labelFor" class="form-label fw-bold">{{ field.nameGroups.lastName.label }}</label>
+                    <input :id="field.nameGroups.lastName.labelFor"
+                           v-model="field.nameGroups.lastName.formValue"
+                           class="form-control" />
+                </div>
+                <div class="col">
+                    <label id="field.nameGroups.firstName.labelFor" class="form-label fw-bold">{{ field.nameGroups.firstName.label }}</label>
+                    <input :id="field.nameGroups.firstName.labelFor"
+                           v-model="field.nameGroups.firstName.formValue"
+                           class="form-control" />
+                </div>
+            </div>
+            <div v-else-if="field.field === 'yearMonthDay'" class="row pt-2 pb-2">
+                <div class="col">
+                    <label :for="field.birthDateGroups.year.labelFor" class="form-label fw-bold">
+                        {{ field.birthDateGroups.year.label }}
+                    </label>
+                    <select :id="field.birthDateGroups.year.labelFor"
+                            v-model="field.birthDateGroups.year.formValue"
+                            class="form-select"
+                            v-on:change="initialMonthList">
+                        <option v-for="year in field.birthDateGroups.year.yearList" :value="year.yearValue">
+                            {{ year.yearOption }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label :for="field.birthDateGroups.month.labelFor" class="form-label fw-bold">
+                        {{ field.birthDateGroups.month.label }}
+                    </label>
+                    <select :id="field.birthDateGroups.month.labelFor"
+                            v-model="field.birthDateGroups.month.formValue"
+                            class="form-select"
+                            v-on:change="initialDayList">
+                        <option v-for="month in field.birthDateGroups.month.monthList" :value="month.monthValue">
+                            {{ month.monthOption }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label :for="field.birthDateGroups.day.labelFor" class="form-label fw-bold">
+                        {{ field.birthDateGroups.day.label }}
+                    </label>
+                    <select :id="field.birthDateGroups.day.labelFor"
+                            v-model="field.birthDateGroups.day.formValue"
+                            class="form-select">
+                        <option v-for="day in field.birthDateGroups.day.dayList" :value="day.dayValue">
+                            {{ day.dayOption }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div v-else class="pt-2 pb-2">
+                <label :for="field.labelFor" class="form-label fw-bold">{{ field.label }}</label>
+                <input :id="field.labelFor"
+                       v-model="field.formValue"
+                       class="form-control"
+                       :type="field.type"
+                       :autocomplete="field.autocomplete" />
+            </div>
+        </div>
+        <hr />
+        <div class="d-flex gap-3">
+            <button class="btn btn-danger w-100" v-on:click="generateRegisterForm">{{ backBtn }}</button>
+            <button class="btn btn-success w-100" v-on:click="submitForm">{{ sendBtn }}</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="~/js/register.js" asp-append-version="true"></script>
