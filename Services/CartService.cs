@@ -137,9 +137,5 @@ namespace JayShop.Services
                 _sessionService.RemoveSession(SESSION_KEY);
             }
         }
-        public void T()
-        {
-
-        }
     }
 }
