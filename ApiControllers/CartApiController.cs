@@ -26,29 +26,44 @@ namespace JayShop.ApiControllers
             var currentCart = _cartService.GetCart();
             if (currentCart == null)
             {
-                return Ok();
+                return NoContent();
             }
-            return Ok(currentCart.ToJson());
+            else
+            {
+                var response = new { success = true, currentCart = currentCart };
+                return Ok(response);
+            }
         }
         [HttpPut("AddToCart")]
-        public IActionResult AddToCart(int product_id)
+        public IActionResult AddToCart(int product_id, int product_quantity)
         {
             var currentCart = _cartService.GetCart();
             if (currentCart != null)
             {
-                _cartService.AddToCart(product_id);
+                _cartService.AddToCart(product_id, product_quantity);
+                var response = new { success = true };
+                return Ok(response);
             }
-            return NoContent();
+            else
+            {
+                return NotFound();
+            }
         }
-        [HttpPut("RemoveFromCart")]
-        public IActionResult RemoveFromCart([FromBody] CartItem cartItem)
+        [HttpPut("DeleteFromCart")]
+        public IActionResult DeleteFromCart([FromBody] CartItem cartItem)
         {
             var currentCart = _cartService.GetCart();
             if (currentCart != null)
             {
-                _cartService.RemoveFromCart(cartItem.ID);
+                _cartService.DeleteFromCart(cartItem.ID);
+                var response = new { success = true };
+
+                return Ok(response);
             }
-            return NoContent();
+            else
+            {
+                return NotFound();
+            }
         }
         [HttpPut("IncreaseItem")]
         public IActionResult IncreaseItem([FromBody] CartItem cartItem)
@@ -57,9 +72,14 @@ namespace JayShop.ApiControllers
             if (currentCart != null)
             {
                 _cartService.IncreaseItem(cartItem.ID);
-                return Ok();
+                var response = new { success = true };
+
+                return Ok(response);
             }
-            return NoContent();
+            else
+            {
+                return NotFound();
+            }
         }
         [HttpPut("DecreaseItem")]
         public IActionResult DecreaseItem([FromBody] CartItem cartItem)
@@ -68,8 +88,14 @@ namespace JayShop.ApiControllers
             if (currentCart != null)
             {
                 _cartService.DecreaseItem(cartItem.ID);
+                var response = new { success = true };
+
+                return Ok(response);
             }
-            return NoContent();
+            else
+            {
+                return NotFound();
+            }
         }
         public IActionResult CleanCart()
         {
@@ -77,8 +103,16 @@ namespace JayShop.ApiControllers
             if (currentCart != null)
             {
                 _cartService.CleanCart();
+                var response = new { success = true };
+
+                return Ok(response);
             }
-            return NoContent();
+            else
+            {
+                var response = new { success = false };
+
+                return BadRequest(response);
+            }
         }
     }
 }
