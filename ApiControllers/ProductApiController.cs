@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using JayShop.DBConnection;
-using JayShop.Services;
 using JayShop.ViewModel;
+using JayShop.Services;
 
 namespace JayShop.ApiControllers
 {
@@ -17,17 +17,20 @@ namespace JayShop.ApiControllers
             _productService = productService;
         }
         [HttpGet("GetProducts")]
-        public IActionResult GetProducts()
-        {
-            var type = 0;
+        public IActionResult GetProducts(int type)
+        {            
             var products = _productService.GetProducts(type);
-            return Ok(products);
-        }
-        [HttpGet("Products")]
-        public IActionResult Products(int type)
-        {
-            var products = _productService.GetProducts(type);
-            return Ok(products);
+            var response = default(object);
+
+            if (products != null)
+            {
+                response = new { success = true, products = products };
+            }
+            else
+            {
+                response = new { success = false, products = products };
+            }
+            return Ok(response);
         }
         [HttpGet("GetProductInformation")]
         public IActionResult GetProductInformation(int product_id)
@@ -39,7 +42,8 @@ namespace JayShop.ApiControllers
             }
             else
             {
-                return Ok(productInformation);
+                var response = new { success = true, productInformation = productInformation };
+                return Ok(response);
             }
         }
     }
