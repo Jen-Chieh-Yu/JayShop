@@ -12,7 +12,7 @@ namespace JayShop.ApiControllers
         private readonly SessionService _sessionService;
         private readonly OrderService _orderService;
         private const string SESSION_KEY = "order";
-        public OrderApiController(SessionService sessionService, 
+        public OrderApiController(SessionService sessionService,
                                                             OrderService orderService)
         {
             _sessionService = sessionService;
@@ -22,7 +22,7 @@ namespace JayShop.ApiControllers
         public IActionResult GetOrder()
         {
             var currentOrder = _orderService.GetOrder();
-            return Ok(currentOrder);
+            return Ok(new { success = true, order = currentOrder });
         }
         [HttpPost("CreateOrder")]
         public IActionResult CreateOrder([FromBody] Order order)
@@ -35,12 +35,12 @@ namespace JayShop.ApiControllers
             else
             {
                 _orderService.CreateOrder(order);
-                return Ok();
+                return Ok(new { success = true, href = "/Order/Order" });
             }
         }
         public IActionResult SendOrder([FromBody] Order order)
         {
-            if(order == null)
+            if (order == null)
             {
                 return NoContent();
             }
@@ -50,19 +50,26 @@ namespace JayShop.ApiControllers
                 if (result == true)
                 {
                     _sessionService.SetObjectAsJson(SESSION_KEY, order);
-                    return Ok();
+                    return Ok(new { success = true });
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest(new { success = false });
                 }
             }
         }
         public IActionResult SearchOrder(int userID)
         {
             var order = _orderService.SearchOrder(userID);
-            
-            return Ok(order);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(order);
+            }
         }
         //[HttpPost("CleanOrder")]
         //public IActionResult CleanOrder()
