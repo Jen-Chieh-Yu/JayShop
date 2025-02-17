@@ -51,9 +51,5 @@ namespace JayShop.Services
             }
             return null;
         }
-        public void T()
-        {
-
-        }
     }
 }
