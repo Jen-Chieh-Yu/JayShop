@@ -51,11 +51,11 @@
         },
         getErrors() {
             const errors = sessionStorage.getItem('errorsForm');
-            console.log(JSON.parse(errors));
+            //console.log(JSON.parse(errors));
             if (errors) {
                 this.errors = JSON.parse(errors);
                 sessionStorage.removeItem('errorsForm');
-                //console.log(this.errors);
+                console.log(this.errors);
             }
         }
     },

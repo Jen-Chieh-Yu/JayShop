@@ -1,4 +1,4 @@
-﻿import store from './store/cart.js';
+﻿import store from '../vue/store/cart.js';
 
 const navbar = createApp({
     data() {
@@ -15,8 +15,8 @@ const navbar = createApp({
         }
     },
     methods: {
-        async fethchCart() {
-            const dispatchParam = "fetchCart";
+        async getCart() {
+            const dispatchParam = "getCartAPI";
             await store.dispatch(dispatchParam);
             //console.log(store.getters.cartItems.length);
         },
@@ -30,7 +30,7 @@ const navbar = createApp({
             this.menuOpened = !this.menuOpened;
         },
         products(type) {
-            const href = `/Home/Products?type=${type}`;
+            const href = `/Product/Products?type=${type}`;
             try {
                 window.location.href = href;
             }
@@ -39,7 +39,7 @@ const navbar = createApp({
         }
     },
     async created() {
-        await this.fethchCart();
+        await this.getCart();
     },
     computed: {
         ...mapGetters(['cart']),

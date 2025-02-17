@@ -17,14 +17,14 @@
                 { type: 0, hrefName: "所有商品" },
                 { type: 0, hrefName: "" },
                 { type: "#", hrefName: "食物" },
-                ];
+            ];
             const productType = state.targetProduct.type;
             breadCrumb[1].type = productType;
             switch (productType) {
-                case 1:                                                              
+                case 1:
                     breadCrumb[1].hrefName = "日本商品";
                     break;
-                case 2:                                                           
+                case 2:
                     breadCrumb[1].hrefName = "韓國商品";
                     break;
                 default:
@@ -41,25 +41,57 @@
     // 操作同步或異步事件的處理但不直接修改資料（state）。
     // 是透過commit → 呼叫 mutation 改變 state。
     actions: {
-        async fetchBreadCrumb({ commit }) {
+        async getBreadCrumbAPI({ commit }) {
             try {
                 commit('setBreadCrumb');
             }
             catch (error) {
             }
         },
-        async fetchProduct({ commit }, { productID }) {
-            const url = "/api/ProductApi/GetProductInformation";
+        async getProductInformationAPI({ commit }, { productID }) {
+            const apiURL = "/api/ProductApi/GetProductInformation";
             const data = { product_id: productID };
+            let result;
+
             try {
-                const response = await axios.get(url, { params: data });
-                commit('setProductInformation', response.data);
+                const response = await axios.get(apiURL, { params: data });
+                if (response.status === 200 && response.data.success === true) {
+                    const productInformation = response.data.productInformation;
+                    commit('setProductInformation', productInformation);
+                    result = { success: true, message: "" };
+                }
+                else {
+                    result = { success: false, message: "" };
+                }
             }
             catch (error) {
+                console.log("API Error", error);
+                result = { success: false, message: "" };
             }
+            //return result;
         },
-        getProductInformation({ commit }, { productID }) {
-            const href = `/Home/ProductInformation?id=${productID}`;
+        async addToCartAPI({ commit }, { productID, productQuantity }) {
+            const apiURL = "/api/CartApi/AddToCart";
+            const apiParams = { product_id: productID, product_quantity: productQuantity };
+            let result;
+
+            try {
+                const response = await axios.put(apiURL, null, { params: apiParams });
+                if (response.status === 200 && response.data.success === true) {
+                    result = { success: true, message: "" };
+                }
+                else {
+                    result = { success: false, message: "" };
+                }
+            }
+            catch (error) {
+                result = { success: false, message: "" };
+                console.log("API Error : ", error);
+            }
+            return result;
+        },
+        goToProductPageAPI({ commit }, { productID }) {
+            const href = `/Product/ProductInformation?id=${productID}`;
             try {
                 window.location.href = href;
             }

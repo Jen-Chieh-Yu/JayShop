@@ -60,53 +60,58 @@
             }
             //console.log(state.tableRow);
         },
-        setCart(state, data) {
-            state.cart = data;
+        setCart(state, currentCart) {
+            Object.assign(state.cart, currentCart);
         },
         adjustCart(state, { method, itemID }) {
-            const target = state.cart.cartItems.find(item => item.ID === itemID);                    
-            if (method === "-" && target.Quantity > 1) {
-                target.Quantity -= 1;
-                state.cart.Quantity -= 1;
-                state.cart.Subtotal -= target.Price;
+            const target = state.cart.cartItems.find(item => item.id === itemID);
+                                                                          
+            if (method === "-" && target.quantity > 1) {
+                target.quantity -= 1;
+                state.cart.quantity -= 1;
+                state.cart.subtotal -= target.price;
             }
             else if (method === "+") {
-                target.Quantity += 1;
-                state.cart.Quantity += 1;
-                state.cart.Subtotal += target.Price;
+                target.quantity += 1;
+                state.cart.quantity += 1;
+                state.cart.subtotal += target.price;
             }
-            else if (method === "remove") {
-                const index = state.cart.cartItems.findIndex(item => item.ID === itemID);
+            else if (method === "delete") {                                                                                 
+                const index = state.cart.cartItems.findIndex(item => item.id === itemID);
                 state.cart.cartItems.splice(index, 1);
             }
             else {
                 return;
-            }
-            target.Subtotal = target.Price * target.Quantity;
-            state.cart.DeliveryFee = state.cart.Subtotal > 500 ? 0 : 60;
-            state.cart.Total = state.cart.Subtotal + state.cart.DeliveryFee;
+            }                                     
+            target.subtotal = target.price * target.quantity;
+            state.cart.deliveryFee = state.cart.subtotal > 500 ? 0 : 60;
+            state.cart.total = state.cart.subtotal + state.cart.deliveryFee;
         },
     },
     // 操作同步或異步事件的處理但不直接修改資料（state）。
     // 是透過commit → 呼叫 mutation 改變 state。
     actions: {
-        fetchProgress({ commit, state }) {
+        getProgressAPI({ commit, state }) {
             const pathName = window.location.pathname;
             const index = state.paths.indexOf(pathName);
             commit('setProgress');
             commit('adjustProgress', index);
             //console.log(state.currentProgress);
         },
-        async fetchCart({ commit }) {
-            const url = "/api/Cartapi/GetShoppingCart";    
+        async getCartAPI({ commit }) {
+            const apiURL = "/api/Cartapi/GetShoppingCart";
             try {
-                const response = await axios.get(url);                
-                commit('setCart', response.data);
-                commit('setTableRow');
+                const response = await axios.get(apiURL);
+                //console.log(response);
+                if (response.status === 200 && response.data.currentCart != null) {
+                    commit('setCart', response.data.currentCart);
+                    commit('setTableRow');
+                }
             } catch (error) {
+                console.log("API Error : ", error);
             }
         },
-        async adjustItemQuantity({ commit }, { method, itemID }) {                        
+        async adjustItemQuantityAPI({ commit }, { method, itemID }) {
             let controller = ""
             if (method === "-") {
                 controller = "DecreaseItem";
@@ -114,24 +119,31 @@
                 controller = "IncreaseItem";
             } else {
                 return;  // quantity <=1;
-            }
-            const url = `/api/CartApi/${controller}`;        
+            }                                                       
+            const apiURL = `/api/CartApi/${controller}`;
             const data = { ID: itemID };
             try {
-                const response = await axios.put(url, data);                            
-                if (response) commit('adjustCart', { method, itemID });
+                const response = await axios.put(apiURL, data);
+                //console.log(response);
+                if (response.status === 200 && response.data.success === true) { 
+                    commit('adjustCart', { method, itemID });
+                }
             }
             catch (error) {
-            }                                                 
+                console.log("API Error : ", error);
+            }
         },
-        async removeItem({ commit, state }, { itemID }) {
-            const url = "/api/CartApi/RemoveFromCart";
+        async deleteItemAPI({ commit, state }, { itemID }) {
+            const apiURL = "/api/CartApi/DeleteFromCart";
             const data = { ID: itemID };
             try {
-                const response = await axios.put(url, data);
-                if (response) commit('adjustCart', { method: 'remove', itemID });
+                const response = await axios.put(apiURL, data);
+                if (response.status === 200 && response.data.success === true) {
+                    commit('adjustCart', { method: 'delete', itemID });
+                }
             }
             catch (error) {
+                console.log("API Error : ", error);
             };
         }
     },
@@ -154,16 +166,16 @@
             return state.cart.cartItems || null;
         },
         quantity(state) {
-            return state.cart.Quantity || 0;
+            return state.cart.quantity || 0;
         },
-        subtotal(state) { 
-            return state.cart.Subtotal || 0;
+        subtotal(state) {
+            return state.cart.subtotal || 0;
         },
-        deliveryFee(state) {                                            
-            return state.cart.DeliveryFee || 0;
+        deliveryFee(state) {
+            return state.cart.deliveryFee || 0;
         },
         total(state) {
-            return state.cart.Total || 0;
+            return state.cart.total || 0;
         }
     }
 });

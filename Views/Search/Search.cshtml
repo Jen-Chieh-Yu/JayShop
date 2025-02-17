@@ -1,7 +1,7 @@
-﻿<div id="search">
+﻿<div id="search-result">
     <div v-if="products">
         <div class="selection">
-            <h5 class="selection-title">篩選</h5>
+            <h5 class="selection-title">{{ sortButtonsTitle }}</h5>
             <div class="selection-btn-group">
                 <button v-for="btn in sortButtons" :key="btn" class="select-btn btn btn-outline-secondary"
                         :class="{ 'active' : sortType===btn }" v-on:click="sortProducts($event.target.innerHTML)">
@@ -24,10 +24,9 @@
             </div>
         </div>
     </div>
-
     <div v-else>
         查無商品
     </div>
 </div>
 
-<script type="module" src="~/js/search.js" asp-append-version="true"></script>
+<script type="module" src="/js/search/search.js" asp-append-version="true"></script>

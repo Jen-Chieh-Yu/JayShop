@@ -1,10 +1,11 @@
-﻿import storeProductInformation from './store/product-information.js';
+﻿import storeProductInformation from '../vue/store/product-information.js';
 
-const search = createApp({
+const searchResult = createApp({
     data() {
-        return { 
-            // 頁面標題
-            pageTitle:null,
+        return {
+            pageTitle: "",
+            // 排序鈕標題
+            sortButtonsTitle: "篩選",
             // 排序鈕
             sortButtons: ["綜合排名", "最新", "最熱銷", "價格高到低", "價格低到高"],
             sortType: "綜合排名",
@@ -17,20 +18,18 @@ const search = createApp({
             const searchParam = window.location.search;
             const queryString = new URLSearchParams(searchParam);
             const keyword = queryString.get('keyword');
-            const url = "/api/SearchApi/Search";
+            const apiURL = "/api/SearchApi/Search";
             const data = { keyword: keyword };
             this.pageTitle = keyword;
             try {
-                const response = await axios.get(url, { params: data });
-                const products = response.data;
-                if (products.length > 0) {
-                    this.products = products;
-                    
-                    //console.log(products);    
+                const response = await axios.get(apiURL, { params: data });
+                //console.log(response);                     
+                if (response.status === 200 && response.data.success === true) {
+                    this.products = response.data.searchResult;
                 }
             }
             catch (error) {
-                console.log(error);
+                //console.log(error);
             }
         },
         sortProducts(sortType) {
@@ -51,4 +50,4 @@ const search = createApp({
         document.title = `搜尋 - ${this.pageTitle} | Jay's Shop`;
     }
 });
-search.mount("#search");
+searchResult.mount("#search-result");

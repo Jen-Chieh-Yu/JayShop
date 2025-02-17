@@ -51,26 +51,5 @@ namespace JayShop.Services
             }
             return null;
         }
-        //private List<Product> GetProductData()
-        //{
-        //    string filePath = "./wwwroot/photo/Merchandise/";
-        //    string[] files = Directory.GetFiles(filePath);
-        //    var products = new List<Product>();
-        //    int i = 0;
-        //    foreach (var file in files)
-        //    {
-        //        i++;
-        //        string productName = Path.GetFileNameWithoutExtension(file);
-        //        int price = 100;
-        //        string fileName = Path.GetFileName(file);
-        //        products.Add(new Product() { ID = i, Name = productName, Price = price, Url = "/photo/Merchandise/" + fileName });
-        //    };
-        //    return products;
-        //}
-        //public List<Product> GetProduct()
-        //{
-        //    var products = GetProductData();
-        //    return products;
-        //}
     }
 }

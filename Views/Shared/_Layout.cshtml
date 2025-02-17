@@ -17,8 +17,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vuex@4" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-router@4.1.6/dist/vue-router.global.min.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" asp-append-version="true"></script>
-    <script src="~/js/vue-setup.js" asp-append-version="true"></script>
-    <script type="module" src="~/js/store/cart.js" asp-append-version="true"></script>
+    <script src="~/js/vue/vue-setup.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/vue/store/cart.js" asp-append-version="true"></script>
 </head>
 
 <body>
@@ -186,9 +186,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script type="module" src="~/js/Layout.js" asp-append-version="true"></script>
-    <script type="module" src="~/js/chatbot.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/layout/layout.js" asp-append-version="true"></script>
+    <script type="module" src="~/js/chatbot/chatbot.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

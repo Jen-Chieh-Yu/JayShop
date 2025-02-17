@@ -1,10 +1,10 @@
-﻿<div method="" id="register" class="d-flex justify-content-center">
+﻿<form method="post" id="register" class="d-flex justify-content-center">
     <div class="register-form">
         <div class="row pt-2">
             <h3 class="fw-bold">{{ registerFormTitle }}</h3>
         </div>
         <hr />
-        <div v-for="(field, index) in registerFormDetails" :class="`form-field-${field.field}`">
+        <div v-for="(field, index) in registerFormDetails" :class="`form-row-${field.field}`">
             <div v-if="field.field==='name'" class="row pt-2 pb-2">
                 <div class="col">
                     <label id="field.nameGroups.lastName.labelFor" class="form-label fw-bold">{{ field.nameGroups.lastName.label }}</label>
@@ -15,6 +15,7 @@
                 <div class="col">
                     <label id="field.nameGroups.firstName.labelFor" class="form-label fw-bold">{{ field.nameGroups.firstName.label }}</label>
                     <input :id="field.nameGroups.firstName.labelFor"
+                           :name="field.nameGroups.firstName.labelFor"
                            v-model="field.nameGroups.firstName.formValue"
                            class="form-control" />
                 </div>
@@ -62,6 +63,7 @@
             <div v-else class="pt-2 pb-2">
                 <label :for="field.labelFor" class="form-label fw-bold">{{ field.label }}</label>
                 <input :id="field.labelFor"
+                       :name="field.labelFor"
                        v-model="field.formValue"
                        class="form-control"
                        :type="field.type"
@@ -74,6 +76,6 @@
             <button class="btn btn-success w-100" v-on:click="submitForm">{{ sendBtn }}</button>
         </div>
     </div>
-</div>
+</form>
 
-<script type="module" src="~/js/register.js" asp-append-version="true"></script>
+<script type="module" src="~/js/user/register.js" asp-append-version="true"></script>

@@ -50,9 +50,11 @@
             }
             catch (error) {                                
                 if (error.response.data.success === false && error.response.status === 400) {
-                    const formErrors = error.response.data.errors;
-                    console.log(formErrors);
-                    sessionStorage.setItem('formErrors', JSON.stringify(formErrors));
+                    const errorsForm = error.response.data.errors;
+                    //console.log(errorsForm);
+                    if (!sessionStorage.getItem(errorsForm)) {
+                        sessionStorage.setItem('errorsForm', JSON.stringify(errorsForm));
+                    }                                                                                                                             
                     //window.location.reload();
                 }
             }
@@ -197,13 +199,13 @@
         this.initialYearList();
         this.initialMonthList();
         this.initialDayList();
-        const errors = sessionStorage.getItem('formErrors');
-        //if (errors) {
-        //    this.errors = errors
-        //    console.log(this.errors);
-        //}
-        //this.generateRegisterForm();
-        //console.log(this.registerFormDetails[5].birthDateGroups);
+        const errors = sessionStorage.getItem('errorsForm');
+        //console.log(JSON.parse(errors));
+        if (errors) {
+            this.errors = JSON.parse(errors)
+            sessionStorage.removeItem('errorsForm');
+            console.log(this.errors);
+        }                                                                                                     
     }
 });
 registerForm.mount('#register');

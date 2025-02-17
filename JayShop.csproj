@@ -25,7 +25,6 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\js\login.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\order.js" />
-    <_ContentIncludedByDefault Remove="wwwroot\js\product-information.js" />
     <_ContentIncludedByDefault Remove="wwwroot\sass\_login.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\sass\_main.scss" />
     <_ContentIncludedByDefault Remove="wwwroot\sass\_register.scss" />
@@ -48,13 +47,14 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\data\" />
+    <Folder Include="wwwroot\js\chatbot\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\js\user\login.js" />
-    <None Include="wwwroot\js\order.js" />
-    <None Include="wwwroot\js\store\product-information.js" />
+    <None Include="wwwroot\js\order\order.js" />
+    <None Include="wwwroot\js\vue\store\product-information.js" />
     <None Include="wwwroot\photo\Merchandise\日本 明治「GOCHI」軟糖.png" />
     <None Include="wwwroot\photo\Merchandise\日本BOURBON北日本條狀軟糖.png" />
     <None Include="wwwroot\photo\Merchandise\日本Glico格力高 9袋入百利滋野菜棒.png" />
@@ -78,6 +78,13 @@
     <None Include="wwwroot\sass\_login.scss" />
     <None Include="wwwroot\sass\_main.scss" />
     <None Include="wwwroot\sass\_register.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\js\chatbot\chatbot.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

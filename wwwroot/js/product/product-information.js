@@ -1,6 +1,6 @@
-﻿import storeProductInformation from './store/product-information.js';
-import store from './store/cart.js';
-import { numberFormat } from "./functions/numberformat.js";
+﻿import storeProductInformation from '../vue/store/product-information.js';
+import store from '../store/cart.js';
+import { numberFormat } from "../functions/numberformat.js";
 
 const productInformation = createApp({
     data() {
@@ -30,27 +30,29 @@ const productInformation = createApp({
     },
     methods: {
         products(type) {
-            if (type === '#') return;
-            const href = `/Home/Products?type=${type}`;
+            if (type === '#' || type === undefined) return;
+            const href = `/Product/GetProducts?type=${type}`;
             try {
                 window.location.href = href;
             }
             catch (error) {
             }
         },
-        async fetchBreadCrumb() {
-            await storeProductInformation.dispatch('fetchBreadCrumb');
+        async getBreadCrumb() {
+            await storeProductInformation.dispatch('getBreadCrumbAPI');
             this.breadCrumb = storeProductInformation.getters.breadCrumb;
             //console.log(this.breadCrumb);
         },
-        async fetchProduct() {
+        async getProductInformation() {
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             this.productID = urlParams.get('id');
             // console.log(this.productID);
-            await storeProductInformation.dispatch('fetchProduct', { productID: this.productID });
-            this.product = storeProductInformation.getters.targetProduct;
-            this.relevantProducts = storeProductInformation.getters.relevantProducts;
+            if (this.productID != undefined) {
+                await storeProductInformation.dispatch('getProductInformationAPI', { productID: this.productID });
+                this.product = storeProductInformation.getters.targetProduct;
+                this.relevantProducts = storeProductInformation.getters.relevantProducts;
+            }
         },
         adjustQuantity(event) {
             const methods = event.currentTarget.innerText;
@@ -67,28 +69,32 @@ const productInformation = createApp({
             const data = { product_id: this.productID };
         },
         async addToCart() {
-            const url = `/api/CartApi/AddToCart?product_id=${this.productID}`;           
-            try {
-                const response = await axios.put(url);            
-                if (response) {                  
-                    store.dispatch('fetchCart');     
-                    //console.log("Success");
+            if (this.productID != undefined) {
+                const productID = this.productID;
+                const productQuantity = this.count;
+                const result = await storeProductInformation
+                    .dispatch('addToCartAPI', { productID, productQuantity });
+                if (result.success === true) {
+                    store.dispatch('getCartAPI');
                 }
-            }
-            catch (error) {
-            }
+                else {
+                    console.log("Message : ", result.message);
+                }
+            } 
         },
-        getProductInformation(productID) {
-            storeProductInformation.dispatch('getProductInformation', { productID });
+        goToProductPage(productID) {
+            if (productID != undefined) {
+                storeProductInformation.dispatch('goToProductPageAPI', { productID });
+            }
         },
         loadMore() {
             this.productsToShow += this.productsToShow;
             this.showLoadMore = this.endIndex + this.productsToShow < this.relevantProducts.length;
             //console.log(this.endIndex + this.productsToShow);
         },
-        async main() {              
-            await this.fetchProduct();
-            await this.fetchBreadCrumb();
+        async main() {
+            await this.getProductInformation();
+            this.getBreadCrumb();
             document.getElementById('product-information').style.display = 'block';
         }
     },

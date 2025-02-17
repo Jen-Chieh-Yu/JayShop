@@ -1,5 +1,5 @@
-﻿import store from './store/cart.js';
-import { numberFormat } from './functions/numberformat.js';
+﻿import store from '../vue/store/cart.js';
+import { numberFormat } from '../functions/numberformat.js';
 
 const order = createApp({
     data() {
@@ -21,24 +21,24 @@ const order = createApp({
             // 訂單資訊
             billTitle: "訂單資訊",
             bill: null,
-            checkText: "我已確認訂購品項、金額與取貨人的身份證件姓名正確無誤",
+            checkText: "已確認訂購品項、金額與取貨人的身份證件姓名正確無誤",
             backBtn: "返回購物車",
-            sendBtn:"送出訂單"
+            sendBtn: "送出訂單"
         }
     },
     methods: {
-        async fetchProgresss() {
+        async getProgress() {
             try {
-                await this.$store.dispatch('fetchProgress');
+                await this.$store.dispatch('getProgressAPI');
                 this.steps = this.$store.getters.steps;
                 this.currentProgress = this.$store.getters.currentProgress;
             }
             catch (error) {
             }
         },
-        async fetchCart() {
+        async getCart() {
             try {
-                await this.$store.dispatch('fetchCart');
+                await this.$store.dispatch('getCart');
                 this.cart = store.getters.cart;
                 this.cartItems = this.cart.cartItems;
                 this.tableRow = store.getters.tableRow;
@@ -53,20 +53,20 @@ const order = createApp({
             }
         },
         async getOrder() {
-            const url = "/api/OrderApi/GetOrder"
+            const apiURL = "/api/OrderApi/GetOrder"
             try {
-                const response = await axios.get("/api/OrderApi/GetOrder");
-                console.log(response.data);
-                const order = response.data;
-                const orderDetails = order.orderDetails;
-                //console.log(order);
-                //console.log(orderDetails);
-                this.orderDetails = {
-                    收件人姓名: order.contactName,
-                    收件人電話: order.contactPhone,
-                    配送地址: order.deliveryAddress,
-                    備註: order.memo,
-                }                                                              
+                const response = await axios.get(apiURL);
+                if (response.status === 200 & response.data.success == true) {
+                    const order = response.data.order;
+                    //console.log(order);
+                    //console.log(orderDetails);
+                    this.orderDetails = {
+                        收件人姓名: order.contactName,
+                        收件人電話: order.contactPhone,
+                        配送地址: order.deliveryAddress,
+                        備註: order.memo,
+                    }
+                }       
             }
             catch (error) {
             }
@@ -75,9 +75,9 @@ const order = createApp({
             return numberFormat(number);
         },
         async main() {
-            await this.fetchCart();
+            await this.getCart();
             if (this.cart) {
-                this.fetchProgresss();
+                this.getProgress();
                 this.getOrder();
             }
         }
@@ -85,7 +85,7 @@ const order = createApp({
     computed: {
     },
     created() {
-        this.main();           
+        this.main();
     },
     mounted() {
     }

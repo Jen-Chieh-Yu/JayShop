@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using JayShop.DBConnection;
-using JayShop.Services;
 using JayShop.Models;
 
 namespace JayShop.Services
@@ -26,7 +25,7 @@ namespace JayShop.Services
 
             if (_cart.Quantity == 0)
             {
-                this.InitializeCartWithDummyData();
+                InitializeCartWithDummyData();
             }
             _sessionService.SetObjectAsJson(SESSION_KEY, _cart);
         }
@@ -35,13 +34,13 @@ namespace JayShop.Services
         {
             for (var item_ID = 1; item_ID < 4; item_ID++)
             {
-                this.AddToCart(item_ID);
+                AddToCart(item_ID, 1);
             }
         }
 
         public Cart? GetCart() => _cart;
 
-        public void AddToCart(int product_id)
+        public void AddToCart(int product_id, int product_quantity)
         {
             if (_cart != null)
             {
@@ -56,18 +55,18 @@ namespace JayShop.Services
                                                                                     .FirstOrDefault();
                     if (targetProduct != null)
                     {
-                        this.AddToCart(targetProduct);
+                        AddToCart(targetProduct, product_quantity);
                     }
                 }
                 else
                 {
-                    tempItem.Quantity += 1;
+                    tempItem.Quantity += product_quantity;
                 }
                 _sessionService.SetObjectAsJson(SESSION_KEY, _cart);
             }
         }
 
-        private void AddToCart(Product product)
+        private void AddToCart(Product product, int product_quantity)
         {
             if (_cart != null)
             {
@@ -76,7 +75,7 @@ namespace JayShop.Services
                     ID = product.ID,
                     Name = product.Name,
                     Price = product.Price,
-                    Quantity = 1,
+                    Quantity = product_quantity,
                     ImgUrl = product.Url
                 };
                 _cart.cartItems.Add(cartItem);
@@ -115,7 +114,7 @@ namespace JayShop.Services
             }
         }
 
-        public void RemoveFromCart(int item_ID)
+        public void DeleteFromCart(int item_ID)
         {
             if (_cart != null)
             {
@@ -124,7 +123,7 @@ namespace JayShop.Services
                                                                 .Select(item => item)
                                                                 .FirstOrDefault();
                 if (tempItem != null)
-                { 
+                {
                     cartItem.Remove(tempItem);
                     _sessionService.SetObjectAsJson(SESSION_KEY, _cart);
                 }
