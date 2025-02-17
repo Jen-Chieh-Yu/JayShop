@@ -1,8 +1,4 @@
-﻿@{
-    ViewBag.Title = "訂單確認";
-}
-
-<div id="order">
+﻿<div id="order">
     <div class="progress-list">
         <ol class="list">
             <li v-for="(step, index) in steps" :key="index" :class="{ active : currentProgress[index] }">
