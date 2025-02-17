@@ -19,11 +19,12 @@ namespace JayShop.ApiControllers
         public IActionResult Search(string keyword)
         {
             var searchResult = _searchService.Search(keyword);
+
             if (searchResult.Count == 0 || searchResult == null)
             {
-                return Ok();
+                return NoContent();
             }
-            return Ok(searchResult);
+            return Ok(new { success = true, searchResult = searchResult });
         }
     }
 }
